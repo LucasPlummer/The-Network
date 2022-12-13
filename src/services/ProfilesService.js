@@ -9,6 +9,7 @@ class ProfilesService {
         logger.log('[get profile]', res.data)
         AppState.activeProfile = new Account(res.data)
     }
+
 }
 
 export const profilesService = new ProfilesService()

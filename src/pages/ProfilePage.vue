@@ -22,9 +22,10 @@
                     <h3>
                         class: {{ profile.class }}
                     </h3>
-                    <h3>
-                        graduated: {{ profile.graduated }}
+                    <h3 v-if="profile.graduated">
+                        graduated: Yes!
                     </h3>
+                    <h3 v-else="!profile.graduated">graduated: not yet!</h3>
                 </div>
             </div>
         </div>
@@ -32,6 +33,12 @@
             <div v-for="post in posts" class="col-12 p-4">
                 <PostCard :post="post" />
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button :disabled="!previousPage" @click="changePage(previousPage)"
+                class="btn btn-primary">Previous</button>
+
+            <button :disabled="!nextPage" @click="changePage(nextPage)" class="btn btn-primary">Next</button>
         </div>
     </div>
 </template>
@@ -71,11 +78,22 @@ export default {
         });
         return {
             profile: computed(() => AppState.activeProfile),
-            posts: computed(() => AppState.posts)
+            posts: computed(() => AppState.posts),
+            nextPage: computed(() => AppState.nextPage),
+            previousPage: computed(() => AppState.previousPage),
+
+            async changePage(url) {
+                try {
+                    await postsService.changePage(url);
+                } catch (error) {
+                    logger.error(error);
+                    Pop.error(error.message)
+                }
+            },
         }
     },
     components: { PostCard }
-};
+}
 </script>
 
 

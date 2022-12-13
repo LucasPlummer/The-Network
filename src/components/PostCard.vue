@@ -12,7 +12,9 @@
             created at {{ post.creator.createdAt.slice(0, 10) }}
         </h5>
         <div class="d-flex justify-content-center">
-            <img class="img-card text-center" :src="post.imgUrl" alt="">
+            <img class="img-card text-center"
+                :src="post.imgUrl || 'https://region4.uaw.org/sites/default/files/bio/10546i3dac5a5993c8bc8c_3.jpg'"
+                alt="">
         </div>
         <h1 class="d-flex justify-content-center">{{ post.body }}</h1>
         <button @click.prevent="createLikes" class="d-flex justify-content-center btn btn-danger">

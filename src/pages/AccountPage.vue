@@ -46,7 +46,9 @@
           </div>
 
           <div class="mb-3">
-            <input type="checkbox"> graduated?
+            <label for="graduated">
+              <input type="checkbox" name="graduated" v-model="editable.graduated"> graduated?
+            </label>
           </div>
 
           <button class="btn btn-success" type="submit">Submit</button>

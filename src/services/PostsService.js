@@ -13,13 +13,11 @@ class PostsService {
     }
 
     async getPostsByCreatorId(creatorId) {
-        const res = await api.get('api/posts', {
-            params: {
-                creatorId: creatorId
-            }
-        })
+        const res = await api.get(`api/profiles/${creatorId}/posts`)
         logger.log('[get posts by creator]', res.data)
         AppState.posts = res.data.posts.map(p => new Post(p))
+        AppState.nextPage = res.data.older
+        AppState.previousPage = res.data.newer
     }
     setActivePost(post) {
         AppState.activePost = post
